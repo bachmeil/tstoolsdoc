@@ -1,0 +1,4 @@
+#!/usr/bin/perl -w
+my $arg0 = $ARGV[0];
+`makehtml $arg0`;
+`mv $arg0.html ../docs`;
