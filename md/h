@@ -2,3 +2,5 @@
 my $arg0 = $ARGV[0];
 `makehtml $arg0`;
 `mv $arg0.html ../docs`;
+`makehtml index`;
+`mv index.html ../docs`;

@@ -1,5 +1,6 @@
 Functions:
 
+- [clearDate](clearDate.html)
 - [delta.sum](delta.sum.html)
 - [meanreg](meanreg.html)
 - [se.sum](delta.sum.html)
