@@ -1,5 +1,6 @@
 Functions:
 
+- [armafit](armafit.html)
 - [clearDate](clearDate.html)
 - [delta.sum](delta.sum.html)
 - [meanreg](meanreg.html)
