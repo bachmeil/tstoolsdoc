@@ -1,16 +1,9 @@
-#! /usr/bin/perl
-my $arg0 = $ARGV[0];
-my $infile = "$arg0.md";
-my $outfile = "$arg0.html";
-my $content = `pandoc $infile -t html`;
-
-my $html = <<"END_HEADER";
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta name="generator" content="pandoc" />
-<title>$arg0</title>
+<title>armaFit</title>
 <style type="text/css">
 body {
 	margin: auto;
@@ -102,7 +95,7 @@ blockquote:before {
 <script>
 MathJax = {
   tex: {
-    inlineMath: [['\$', '\$'], ['\$\$', '\$\$']]
+    inlineMath: [['$', '$'], ['$$', '$$']]
   },
   svg: {
     fontCache: 'global'
@@ -110,18 +103,10 @@ MathJax = {
 };
 </script>
 <script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+  src="https://cdn.jsdelivr.net/npm/mathjax/es5/tex-svg.js">
 </script>
 </head>
 <body>
-$content
+
 </body>
-</html>
-END_HEADER
-
-unless(open FILE, '>'.$outfile) {
-	die "\nFile not created due to error opening\n";
-}
-
-print FILE $html;
-close FILE;
+</html>'
