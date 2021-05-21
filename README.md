@@ -10,6 +10,6 @@ If you want to build it yourself, you need Pandoc and a recent version of Perl i
 
 Once you do that, you can open index.html in the browser and start navigating.
 
-Pull requests welcome. Since I'm not able to review, edit, and merge documentation written by others in a timely fashion, you should feel free to post documentation and examples on the wiki (which is open to the public for editing). That's a public space. You don't need anyone's permission to post something there as long as it's related to tstools and it's not intentionally inaccurate. I may add official pages linking to your wiki entry.
+Pull requests welcome. Since I'm not able to review, edit, and merge documentation written by others in a timely fashion, you should feel free to post documentation and examples [on the wiki](https://github.com/bachmeil/tstoolsdoc/wiki) (which is open to the public for editing). That's a public space. You don't need anyone's permission to post something there as long as it's related to tstools and it's not intentionally inaccurate. I may add official pages linking to your wiki entry.
 
-There's a discussion board for any questions. Given the number of users of the tstools package, there will hopefully be someone to answer your question.
+There's a [discussion board](https://github.com/bachmeil/tstoolsdoc/discussions) for any questions. Given the number of users of the tstools package, there will hopefully be someone to answer your question.
