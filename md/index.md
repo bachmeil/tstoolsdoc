@@ -8,3 +8,4 @@ Functions:
 - [se.sum](delta.sum.html)
 - [time.dummy](time_dummy.html)
 - [tsreg](tsreg.html)
+- [wald](wald.html)
