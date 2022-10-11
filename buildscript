@@ -1,10 +1,14 @@
 rm -f build
 mkdir build
+echo '# Documentation Index' > index.md
+echo '' >> index.md
 for f in ./*.md; do
   fmod="${f:2}"
   fmod2="${fmod::-3}"
+  echo "- [${fmod2}](${fmod2}.html})"
   case "$f" in
-    ./index.md) cat page-top.html > build/index.html;cat index.md >> build/index.html;cat index-bottom.html >> build/index.html;;
+    ./index.md) ;;
     *) cat page-top.html > "build/${fmod2}.html";cat "${fmod2}.md" >> "build/${fmod2}.html";cat page-bottom.html >> "build/${fmod2}.html";;
   esac
 done
+cat page-top.html > build/index.html;cat index.md >> build/index.html;cat index-bottom.html >> build/index.html
