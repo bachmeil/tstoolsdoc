@@ -1,8 +1,6 @@
 # import.fred
 
-```
-import.fred <- function(name)
-```
+`import.fred <- function(name)`
 
 This function loads the CSV format file `name` from the local computer. The format is assumed to be the standard download format of FRED, with the date in the first column, the data in the second column, and a header in the first row. This function will NOT work if the CSV file is in any other format.
 
