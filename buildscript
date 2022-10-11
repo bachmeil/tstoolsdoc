@@ -5,7 +5,7 @@ echo '' >> index.md
 for f in ./*.md; do
   fmod="${f:2}"
   fmod2="${fmod::-3}"
-  if ["$fmod2" != "README"]; then
+  if [ "$fmod2" != "README" ]; then
     echo "- [${fmod2}](${fmod2}.html)" >> index.md
   fi
   case "$f" in
