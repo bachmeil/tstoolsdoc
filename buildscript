@@ -5,7 +5,7 @@ echo '' >> index.md
 for f in ./*.md; do
   fmod="${f:2}"
   fmod2="${fmod::-3}"
-  echo "- [${fmod2}](${fmod2}.html})"
+  echo "- [${fmod2}](${fmod2}.html})" >> index.md
   case "$f" in
     ./index.md) ;;
     *) cat page-top.html > "build/${fmod2}.html";cat "${fmod2}.md" >> "build/${fmod2}.html";cat page-bottom.html >> "build/${fmod2}.html";;
