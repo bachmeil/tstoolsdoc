@@ -129,5 +129,23 @@ collect(x, name=2, output="numeric")
 
 This should generally be avoided whenever a character name is available, as among other things, your program will remain valid if the order of the output in the list elements changes. If the names of the output change, it will lead to an error when specifying a character name.
 
+## Transforming the elements of a list
 
+At a more general level, you may want to transform the elements of a list. To make this concrete, suppose you have generated three datasets, estimated a regression using each of them, and saved the results in a list. You want to pull the t-statistic on the second coefficient for each, collecting the results in a vector. For this situation, you can add a function that operates on each element of the list and returns the output you're after.
 
+This example is more involved due to the fact that this is for more advanced use cases.
+
+```
+set.seed(451)
+x1 <- rnorm(100)
+y1 <- rnorm(100)
+x2 <- rnorm(100)
+y2 <- rnorm(100)
+x3 <- rnorm(100)
+y3 <- rnorm(100)
+
+results <- list(lm(y1~x1), lm(y2~x2), lm(y3~x3))
+collect(results, transform=function(el) { summary(el)$coefficients[1,3] }, output="numeric")
+```
+
+Note: If you have both `name` and `transform` as arguments, the `transform` function is applied after pulling out the desired component.
