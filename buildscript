@@ -1,6 +1,6 @@
 rm -f build
 mkdir build
-echo '# Documentation Index' > index.md
+echo '# tstools Documentation Index' > index.md
 echo '' >> index.md
 for f in ./*.md; do
   fmod="${f:2}"
