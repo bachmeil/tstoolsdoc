@@ -23,6 +23,8 @@ The purpose of  `ts.check` is to minimize the amount of this intermediate techni
 Test that four observations in `inf` have the correct value.
 
 ```
+set.seed(200)
+inf <- ts(runif(750, 0, 20), end=c(2022,4), frequency=12)
 ts.check(inf, list(c(1959,11), c(2000,12),
     c(2008,1), c(2022,4)), c(10.6745, 2.79097, 15.62435, 10.57674))
 # Second element shows a big difference
