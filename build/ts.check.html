@@ -1,0 +1,75 @@
+<head>
+    <style>
+        body { max-width: 780px; margin: auto; margin-top: 20px; margin-bottom: 90px; padding-left: 15px; padding-right: 15px; }
+        code { font-family: "Ubuntu Mono", "Courier New", monospace; font-size: 110%; }
+        pre > code { padding: .2rem .5rem; margin: 0 .2rem; border: 1px solid gray; border-radius: 1px; display: block; padding: 1rem 1.5rem; white-space: pre-wrap; }
+        h1, h2, h3 { font-family: Ubuntu, "Trebuchet MS", sans-serif; }
+        a { text-decoration: none; }
+        blockquote { font-family: Georgia, serif; }
+        blockquote:before { border-left: 1px solid gray; }
+    </style>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['$$', '$$']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js"></script>
+</head>
+<textarea id="mdcontent" style="display:none;">
+# ts.check
+
+Data analysis should include a healthy dose of correctness checks:
+
+- Did the data load correctly?
+- Is the transformation doing what it's suppposed to do?
+- Were the simulated values calculated correctly?
+
+The first instinct is to do comparison of the form `x == 2.74`. This misses a couple of points. First, floating point comparisons like that can return the wrong result, so you should use `all.equal` or similar. Second, `all.equal` is not sufficient, because you need to convert `ts` objects using `as.numeric` prior to doing the comparison.
+
+The purpose of  `ts.check` is to minimize the amount of this intermediate technical detail you need to know/understand.
+
+# Signature
+
+`ts.check <- function(x, dates, values)`
+
+- `x`: A ts object. Currently, `x` needs to be a vector time series. In the future, this might be extended to allow checking of a matrix time series, but it does not do that at this time.
+- `dates`: A list of dates to check.
+- `values`: A vector of values that match the specified dates in `x`.
+
+# Example
+
+Test that four observations in `inf` have the correct value.
+
+```
+set.seed(200)
+inf <- ts(runif(750, 0, 20), end=c(2022,4), frequency=12)
+ts.check(inf, list(c(1959,11), c(2000,12),
+    c(2008,1), c(2022,4)), c(10.6745, 2.79097, 15.62435, 10.57674))
+# Second element shows a big difference
+# Other elements slightly different due to rounding
+# Returns TRUE if the check passes
+```
+
+
+<br><br>[&#8592; Return to documentation index](index.html)
+</textarea>
+<body></body>
+<script>
+    const md = markdownit({html:true})
+                      .use(texmath, { engine: katex,
+                                      delimiters: 'dollars',
+                                      katexOptions: { macros: {"\\RR": "\\mathbb{R}"} } });
+    document.body.innerHTML = md.render(document.getElementById("mdcontent").value);
+</script>

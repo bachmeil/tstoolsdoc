@@ -28,3 +28,38 @@
     <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js"></script>
 </head>
 <textarea id="mdcontent" style="display:none;">
+# Date Arithmetic
+
+Operators to simplify arithmetic with monthly or quarterly dates.
+
+Examples:
+
+```
+# Add months to date
+# c(2011,5)
+c(2010,12) %m+% 5
+
+# Subtract months from date
+# c(2009,11)
+c(2010,12) %m-% 13
+
+# Add quarters to date
+# c(2011,3)
+c(2010,4) %q+% 3
+
+# Subtract quarters from date
+# c(2009,4)
+c(2010,4) %q-% 4
+```
+
+
+<br><br>[&#8592; Return to documentation index](index.html)
+</textarea>
+<body></body>
+<script>
+    const md = markdownit({html:true})
+                      .use(texmath, { engine: katex,
+                                      delimiters: 'dollars',
+                                      katexOptions: { macros: {"\\RR": "\\mathbb{R}"} } });
+    document.body.innerHTML = md.render(document.getElementById("mdcontent").value);
+</script>

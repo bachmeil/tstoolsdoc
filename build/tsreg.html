@@ -1,0 +1,86 @@
+<head>
+    <style>
+        body { max-width: 780px; margin: auto; margin-top: 20px; margin-bottom: 90px; padding-left: 15px; padding-right: 15px; }
+        code { font-family: "Ubuntu Mono", "Courier New", monospace; font-size: 110%; }
+        pre > code { padding: .2rem .5rem; margin: 0 .2rem; border: 1px solid gray; border-radius: 1px; display: block; padding: 1rem 1.5rem; white-space: pre-wrap; }
+        h1, h2, h3 { font-family: Ubuntu, "Trebuchet MS", sans-serif; }
+        a { text-decoration: none; }
+        blockquote { font-family: Georgia, serif; }
+        blockquote:before { border-left: 1px solid gray; }
+    </style>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['$$', '$$']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js"></script>
+</head>
+<textarea id="mdcontent" style="display:none;">
+# tsreg
+
+Does a time series regression. Different from `lm`. `lm` is a general regression function, so
+it doesn't do what you want for time series regression. `tsreg` returns
+the following in its output:
+
+- Everything in `lm` output.
+- `$resids`: The residuals (as a ts object)
+- `$fitted`: The fitted values (as a ts object)
+- `$start`: The first observation used in the regression data.
+- `$end`: The last observation used in the regression data.
+- `$int`: `TRUE` or `FALSE` to denote whether there's an intercept in the regression.
+
+# Arguments
+
+`tsreg <- function(y.raw, x.raw, start=NULL, end=NULL, intercept=TRUE)`
+
+- `y.raw`: A ts object. The left side of the regression.
+- `x.raw`: A ts object (may be mts). The right side of the regression.
+- `start`: Optional starting date for the regression.
+- `end`: Optional ending date for the regression.
+- `intercept`: `TRUE` if there's an intercept in the regression, `FALSE` otherwise.
+
+# Examples
+
+```
+tsreg(y, x)
+tsreg(y, x, start=c(2014,1))
+tsreg(y, x, end=c(2019,12))
+tsreg(y, x, start=c(2000,6), end=c(2018,4))
+fit <- tsreg(y, x, intercept=FALSE)
+
+# Can treat the output like lm - because it is
+AIC(fit)
+coefficients(fit)
+summary(fit)
+
+# ts properties
+fit$resids
+fit$fitted
+fit$start
+fit$end
+```
+
+
+
+<br><br>[&#8592; Return to documentation index](index.html)
+</textarea>
+<body></body>
+<script>
+    const md = markdownit({html:true})
+                      .use(texmath, { engine: katex,
+                                      delimiters: 'dollars',
+                                      katexOptions: { macros: {"\\RR": "\\mathbb{R}"} } });
+    document.body.innerHTML = md.render(document.getElementById("mdcontent").value);
+</script>

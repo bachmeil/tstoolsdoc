@@ -28,3 +28,28 @@
     <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js"></script>
 </head>
 <textarea id="mdcontent" style="display:none;">
+# formF
+
+`formF <- function(varfit, constant=TRUE)`
+
+- `varfit` is the output of a call to `VAR` in the vars package
+- `constant` is TRUE if you have a constant term in the estimated VAR model and you want to keep it. For calculation of linear IRFs, you'll normally want `constant` to be FALSE.
+
+Example:
+
+```
+fit <- VAR(dataset)
+formF(fit)
+```
+
+
+<br><br>[&#8592; Return to documentation index](index.html)
+</textarea>
+<body></body>
+<script>
+    const md = markdownit({html:true})
+                      .use(texmath, { engine: katex,
+                                      delimiters: 'dollars',
+                                      katexOptions: { macros: {"\\RR": "\\mathbb{R}"} } });
+    document.body.innerHTML = md.render(document.getElementById("mdcontent").value);
+</script>

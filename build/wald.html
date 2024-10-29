@@ -1,0 +1,77 @@
+<head>
+    <style>
+        body { max-width: 780px; margin: auto; margin-top: 20px; margin-bottom: 90px; padding-left: 15px; padding-right: 15px; }
+        code { font-family: "Ubuntu Mono", "Courier New", monospace; font-size: 110%; }
+        pre > code { padding: .2rem .5rem; margin: 0 .2rem; border: 1px solid gray; border-radius: 1px; display: block; padding: 1rem 1.5rem; white-space: pre-wrap; }
+        h1, h2, h3 { font-family: Ubuntu, "Trebuchet MS", sans-serif; }
+        a { text-decoration: none; }
+        blockquote { font-family: Georgia, serif; }
+        blockquote:before { border-left: 1px solid gray; }
+    </style>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['$$', '$$']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js"></script>
+</head>
+<textarea id="mdcontent" style="display:none;">
+# `wald`
+
+The function `wald` does a Wald test. You supply the constraints. Implementation follows Cameron and Trivedi (2005, page 136). The constraints take the form $R \widehat{\theta} - q = 0$.
+
+## Signature
+
+`wald <- function(R, q, theta, V)`
+
+## Arguments
+
+`R` and `q` describe the constraints. `theta` is the estimated coefficient vector of the unrestricted model. `V` is the variance-covariance matrix of the unrestricted model. You can either send `vcov(fit)` where `fit` is the output of a call to `lm` or a similar regression function, or send your own variance-covariance matrix, which would be the case if you correct for heteroskedasticity or serial correlation.
+
+Normally you would use `lmtest::waldtest` if you have a single regression. This function would help if you don't want to write out a formula for your regression.
+
+## Test Case
+
+This is the code I used to test it:
+
+```
+y <- rnorm(100)
+x <- matrix(rnorm(600), ncol=6)
+x1 <- x[,1:2]
+x2 <- x[,3:6]
+fit1 <- lm(y~x2)
+fit2 <- lm(y~x1+x2)
+lmtest::waldtest(fit2, fit1, test="Chisq")
+
+R <- matrix(0.0, ncol=7, nrow=2)
+R[1,2] <- 1
+R[2,3] <- 1
+q <- c(0.0, 0.0)
+tstools::wald(R, q, fit2$coef, vcov(fit2))
+```
+
+They return the same result. There may be edge cases that have not been tested.
+
+
+<br><br>[&#8592; Return to documentation index](index.html)
+</textarea>
+<body></body>
+<script>
+    const md = markdownit({html:true})
+                      .use(texmath, { engine: katex,
+                                      delimiters: 'dollars',
+                                      katexOptions: { macros: {"\\RR": "\\mathbb{R}"} } });
+    document.body.innerHTML = md.render(document.getElementById("mdcontent").value);
+</script>

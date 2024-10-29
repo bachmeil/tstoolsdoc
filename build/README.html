@@ -1,0 +1,58 @@
+<head>
+    <style>
+        body { max-width: 780px; margin: auto; margin-top: 20px; margin-bottom: 90px; padding-left: 15px; padding-right: 15px; }
+        code { font-family: "Ubuntu Mono", "Courier New", monospace; font-size: 110%; }
+        pre > code { padding: .2rem .5rem; margin: 0 .2rem; border: 1px solid gray; border-radius: 1px; display: block; padding: 1rem 1.5rem; white-space: pre-wrap; }
+        h1, h2, h3 { font-family: Ubuntu, "Trebuchet MS", sans-serif; }
+        a { text-decoration: none; }
+        blockquote { font-family: Georgia, serif; }
+        blockquote:before { border-left: 1px solid gray; }
+    </style>
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['$$', '$$']]
+          },
+          svg: {
+            fontCache: 'global'
+          }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/markdown-it-texmath/css/texmath.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it/dist/markdown-it.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it-texmath/texmath.min.js"></script>
+</head>
+<textarea id="mdcontent" style="display:none;">
+# tstoolsdoc
+
+I'm very slowly adding documentation of the tstools package functionality. It's unlikely I'll ever create a "correct" R package with a full manual. Life's too short to spend it on that.
+
+If you want to build it yourself, you need Pandoc and a recent version of Perl installed. The process to add another documentation page is simple:
+
+- Write out the page in the md/ directory.
+- Add an entry somewhere in the md/index.md file.
+- Run the build script to add that file. For instance, if you write newfunction.md, then run `h newfunction` and you'll end up with newfunction.html in the docs/directory and you'll have an updated index file.
+
+Once you do that, you can open index.html in the browser and start navigating.
+
+Pull requests welcome. Since I'm not able to review, edit, and merge documentation written by others in a timely fashion, you should feel free to post documentation and examples [on the wiki](https://github.com/bachmeil/tstoolsdoc/wiki) (which is open to the public for editing). That's a public space. You don't need anyone's permission to post something there as long as it's related to tstools and it's not intentionally inaccurate. I may add official pages linking to your wiki entry.
+
+There's a [discussion board](https://github.com/bachmeil/tstoolsdoc/discussions) for any questions. Given the number of users of the tstools package, there will hopefully be someone to answer your question.
+
+
+
+<br><br>[&#8592; Return to documentation index](index.html)
+</textarea>
+<body></body>
+<script>
+    const md = markdownit({html:true})
+                      .use(texmath, { engine: katex,
+                                      delimiters: 'dollars',
+                                      katexOptions: { macros: {"\\RR": "\\mathbb{R}"} } });
+    document.body.innerHTML = md.render(document.getElementById("mdcontent").value);
+</script>

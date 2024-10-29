@@ -1,6 +1,7 @@
-rm -f build
+rm -rf build
 mkdir build
-echo '# tstools Documentation Index' > index.md
+cat index-top.md > index.md
+echo '# Function Documentation' >> index.md
 echo '' >> index.md
 for f in ./*.md; do
   fmod="${f:2}"
@@ -14,3 +15,10 @@ for f in ./*.md; do
   esac
 done
 cat page-top.html > build/index.html;cat index.md >> build/index.html;cat index-bottom.html >> build/index.html
+cd other
+for f in ./*.md; do
+  fmod="${f:2}"
+  fmod2="${fmod::-3}"
+  cat ../page-top.html > "../build/${fmod2}.html";cat "${fmod2}.md" >> "../build/${fmod2}.html";cat ../page-bottom.html >> "../build/${fmod2}.html"
+done
+
